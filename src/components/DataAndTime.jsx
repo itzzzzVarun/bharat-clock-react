@@ -1,7 +1,18 @@
+import { useEffect, useState } from 'react';
+
 function DateAndTime () {
-  let date  = new Date()
-  console.log(date)
-  return <p className="lead">This is the current time : {date.toLocaleDateString()} - {date.toLocaleTimeString()}</p>
+
+  const [time, setTime] = useState(new Date());
+  useEffect (() => {
+    let intervalId = setInterval(() => {
+      setTime(new Date())
+    }, 1000)
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [])
+  return <p className="lead">This is the current time : {time.toLocaleDateString()} - {time.toLocaleTimeString()}</p>
 }
 
 export default DateAndTime
